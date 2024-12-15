@@ -1,0 +1,10 @@
+C:\Users\aidan\source\repos\final\ProductMaintenanceApp\ProductMaintenanceApp\bin\Debug\ProductMaintenanceApp.exe.config
+C:\Users\aidan\source\repos\final\ProductMaintenanceApp\ProductMaintenanceApp\bin\Debug\ProductMaintenanceApp.exe
+C:\Users\aidan\source\repos\final\ProductMaintenanceApp\ProductMaintenanceApp\bin\Debug\ProductMaintenanceApp.pdb
+C:\Users\aidan\source\repos\final\ProductMaintenanceApp\ProductMaintenanceApp\obj\Debug\ProductMaintenanceApp.csproj.AssemblyReference.cache
+C:\Users\aidan\source\repos\final\ProductMaintenanceApp\ProductMaintenanceApp\obj\Debug\ProductMaintenanceApp.ProductMaintenanceForm.resources
+C:\Users\aidan\source\repos\final\ProductMaintenanceApp\ProductMaintenanceApp\obj\Debug\ProductMaintenanceApp.Properties.Resources.resources
+C:\Users\aidan\source\repos\final\ProductMaintenanceApp\ProductMaintenanceApp\obj\Debug\ProductMaintenanceApp.csproj.GenerateResource.cache
+C:\Users\aidan\source\repos\final\ProductMaintenanceApp\ProductMaintenanceApp\obj\Debug\ProductMaintenanceApp.csproj.CoreCompileInputs.cache
+C:\Users\aidan\source\repos\final\ProductMaintenanceApp\ProductMaintenanceApp\obj\Debug\ProductMaintenanceApp.exe
+C:\Users\aidan\source\repos\final\ProductMaintenanceApp\ProductMaintenanceApp\obj\Debug\ProductMaintenanceApp.pdb
