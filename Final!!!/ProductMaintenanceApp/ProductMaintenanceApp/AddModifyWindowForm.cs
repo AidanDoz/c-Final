@@ -84,7 +84,7 @@ namespace ProductMaintenanceApp
             if (!DateTime.TryParse(tbReleaseDate.Text, out var releaseDate) ||
                 releaseDate < new DateTime(1753, 1, 1) || releaseDate > new DateTime(9999, 12, 31))
             {
-                MessageBox.Show("Please enter a valid release date (mm/dd/yyyy).");
+                MessageBox.Show("Please enter a valid release date (MM/dd/yyyy).");
                 return false;
             }
 
@@ -103,7 +103,7 @@ namespace ProductMaintenanceApp
                 ProductCode = tbProductCode.Text,
                 Name = tbName.Text,
                 Version = decimal.Parse(tbVersion.Text),
-                ReleaseDate = DateTime.Parse(tbReleaseDate.Text)
+                ReleaseDate = DateTime.ParseExact(tbReleaseDate.Text, "MM/dd/yyyy", null)
             };
         }
 
@@ -111,7 +111,7 @@ namespace ProductMaintenanceApp
         {
             Product.Name = tbName.Text;
             Product.Version = decimal.Parse(tbVersion.Text);
-            Product.ReleaseDate = DateTime.Parse(tbReleaseDate.Text);
+            Product.ReleaseDate = DateTime.ParseExact(tbReleaseDate.Text, "MM/dd/yyyy", null);
         }
 
         private void AddModifyFormLoad(object sender, EventArgs e)
@@ -121,7 +121,7 @@ namespace ProductMaintenanceApp
                 tbProductCode.Text = Product.ProductCode;
                 tbName.Text = Product.Name;
                 tbVersion.Text = Product.Version.ToString();
-                tbReleaseDate.Text = Product.ReleaseDate.ToString("mm/dd/yyyy");
+                tbReleaseDate.Text = Product.ReleaseDate.ToString("MM/dd/yyyy");
                 tbProductCode.Enabled = false;
             }
         }
