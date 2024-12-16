@@ -138,7 +138,7 @@ namespace ProductMaintenanceApp
 
                 // Define the maximum lengths for padding
                 int codePad = 15;
-                int namePad = 30;
+                int namePad = 40;
                 int versionPad = 10;
 
                 foreach (var product in products)

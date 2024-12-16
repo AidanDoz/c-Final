@@ -84,7 +84,7 @@ namespace ProductMaintenanceApp
             if (!DateTime.TryParse(tbReleaseDate.Text, out var releaseDate) ||
                 releaseDate < new DateTime(1753, 1, 1) || releaseDate > new DateTime(9999, 12, 31))
             {
-                MessageBox.Show("Please enter a valid release date (yyyy-mm-dd).");
+                MessageBox.Show("Please enter a valid release date (mm/dd/yyyy).");
                 return false;
             }
 
@@ -121,7 +121,7 @@ namespace ProductMaintenanceApp
                 tbProductCode.Text = Product.ProductCode;
                 tbName.Text = Product.Name;
                 tbVersion.Text = Product.Version.ToString();
-                tbReleaseDate.Text = Product.ReleaseDate.ToString("MM/dd/yyyy");
+                tbReleaseDate.Text = Product.ReleaseDate.ToString("mm/dd/yyyy");
                 tbProductCode.Enabled = false;
             }
         }

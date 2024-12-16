@@ -33,6 +33,10 @@
             btnRemove = new Button();
             btnExit = new Button();
             lstProduct = new ListBox();
+            lblHdrProductCode = new Label();
+            lblHdrName = new Label();
+            lblHdrVersion = new Label();
+            lblHdrReleaseDate = new Label();
             SuspendLayout();
             // 
             // btnAdd
@@ -90,11 +94,55 @@
             lstProduct.TabIndex = 4;
             lstProduct.SelectedIndexChanged += lstProduct_SelectedIndexChanged;
             // 
+            // lblHdrProductCode
+            // 
+            lblHdrProductCode.AutoSize = true;
+            lblHdrProductCode.Font = new Font("Consolas", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblHdrProductCode.Location = new Point(40, 27);
+            lblHdrProductCode.Name = "lblHdrProductCode";
+            lblHdrProductCode.Size = new Size(91, 15);
+            lblHdrProductCode.TabIndex = 9;
+            lblHdrProductCode.Text = "Product Code";
+            // 
+            // lblHdrName
+            // 
+            lblHdrName.AutoSize = true;
+            lblHdrName.Font = new Font("Consolas", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblHdrName.Location = new Point(152, 27);
+            lblHdrName.Name = "lblHdrName";
+            lblHdrName.Size = new Size(35, 15);
+            lblHdrName.TabIndex = 10;
+            lblHdrName.Text = "Name";
+            // 
+            // lblHdrVersion
+            // 
+            lblHdrVersion.AutoSize = true;
+            lblHdrVersion.Font = new Font("Consolas", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblHdrVersion.Location = new Point(485, 27);
+            lblHdrVersion.Name = "lblHdrVersion";
+            lblHdrVersion.Size = new Size(56, 15);
+            lblHdrVersion.TabIndex = 11;
+            lblHdrVersion.Text = "Version";
+            // 
+            // lblHdrReleaseDate
+            // 
+            lblHdrReleaseDate.AutoSize = true;
+            lblHdrReleaseDate.Font = new Font("Consolas", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblHdrReleaseDate.Location = new Point(598, 27);
+            lblHdrReleaseDate.Name = "lblHdrReleaseDate";
+            lblHdrReleaseDate.Size = new Size(91, 15);
+            lblHdrReleaseDate.TabIndex = 12;
+            lblHdrReleaseDate.Text = "Release Date";
+            // 
             // ProductMaintenanceForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 382);
+            Controls.Add(lblHdrReleaseDate);
+            Controls.Add(lblHdrVersion);
+            Controls.Add(lblHdrName);
+            Controls.Add(lblHdrProductCode);
             Controls.Add(lstProduct);
             Controls.Add(btnExit);
             Controls.Add(btnRemove);
@@ -104,6 +152,7 @@
             Text = "Product Maintenance";
             Load += ProductMaintenanceFormLoad;
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -113,5 +162,9 @@
         private Button btnRemove;
         private Button btnExit;
         private ListBox lstProduct;
+        private Label lblHdrProductCode;
+        private Label lblHdrName;
+        private Label lblHdrVersion;
+        private Label lblHdrReleaseDate;
     }
 }
