@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using ProductMaintenanceApp.Models;
 
 namespace ProductMaintenanceApp
@@ -21,16 +22,7 @@ namespace ProductMaintenanceApp
             InitializeComponent();
         }
 
-        private void AddModifyWindowForm_Load(object sender, EventArgs e)
-        {
-            if (IsModify && Product != null)
-            {
-                tbName.Text = Product.Name;
-                tbVersion.Text = Product.Version.ToString();
-                tbReleseDate.Text = Product.ReleaseDate.ToString("yyyy-MM-dd");
-                tbProductCode.Enabled = false;
-            }
-        }
+        
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
@@ -46,7 +38,7 @@ namespace ProductMaintenanceApp
 
         }
 
-        private void tbReleseDate_TextChanged(object sender, EventArgs e)
+        private void tbReleaseDate_TextChanged(object sender, EventArgs e)
         {
 
         }
@@ -89,7 +81,7 @@ namespace ProductMaintenanceApp
                 return false;
             }
 
-            if (!DateTime.TryParse(tbReleseDate.Text, out var releaseDate) ||
+            if (!DateTime.TryParse(tbReleaseDate.Text, out var releaseDate) ||
                 releaseDate < new DateTime(1753, 1, 1) || releaseDate > new DateTime(9999, 12, 31))
             {
                 MessageBox.Show("Please enter a valid release date (yyyy-mm-dd).");
@@ -111,7 +103,7 @@ namespace ProductMaintenanceApp
                 ProductCode = tbProductCode.Text,
                 Name = tbName.Text,
                 Version = decimal.Parse(tbVersion.Text),
-                ReleaseDate = DateTime.Parse(tbReleseDate.Text)
+                ReleaseDate = DateTime.Parse(tbReleaseDate.Text)
             };
         }
 
@@ -119,7 +111,19 @@ namespace ProductMaintenanceApp
         {
             Product.Name = tbName.Text;
             Product.Version = decimal.Parse(tbVersion.Text);
-            Product.ReleaseDate = DateTime.Parse(tbReleseDate.Text);
+            Product.ReleaseDate = DateTime.Parse(tbReleaseDate.Text);
+        }
+
+        private void AddModifyFormLoad(object sender, EventArgs e)
+        {
+            if (IsModify && Product != null)
+            {
+                tbProductCode.Text = Product.ProductCode;
+                tbName.Text = Product.Name;
+                tbVersion.Text = Product.Version.ToString();
+                tbReleaseDate.Text = Product.ReleaseDate.ToString("MM/dd/yyyy");
+                tbProductCode.Enabled = false;
+            }
         }
     }
 }

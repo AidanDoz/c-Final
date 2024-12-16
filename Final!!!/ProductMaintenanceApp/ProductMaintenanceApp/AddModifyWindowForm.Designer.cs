@@ -31,7 +31,7 @@
             tbProductCode = new TextBox();
             tbName = new TextBox();
             tbVersion = new TextBox();
-            tbReleseDate = new TextBox();
+            tbReleaseDate = new TextBox();
             lbProductCode = new Label();
             lbName = new Label();
             lbVersion = new Label();
@@ -64,13 +64,13 @@
             tbVersion.TabIndex = 2;
             tbVersion.TextChanged += tbVersion_TextChanged;
             // 
-            // tbReleseDate
+            // tbReleaseDate
             // 
-            tbReleseDate.Location = new Point(189, 206);
-            tbReleseDate.Name = "tbReleseDate";
-            tbReleseDate.Size = new Size(168, 23);
-            tbReleseDate.TabIndex = 3;
-            tbReleseDate.TextChanged += tbReleseDate_TextChanged;
+            tbReleaseDate.Location = new Point(189, 206);
+            tbReleaseDate.Name = "tbReleaseDate";
+            tbReleaseDate.Size = new Size(168, 23);
+            tbReleaseDate.TabIndex = 3;
+            tbReleaseDate.TextChanged += tbReleaseDate_TextChanged;
             // 
             // lbProductCode
             // 
@@ -142,12 +142,13 @@
             Controls.Add(lbVersion);
             Controls.Add(lbName);
             Controls.Add(lbProductCode);
-            Controls.Add(tbReleseDate);
+            Controls.Add(tbReleaseDate);
             Controls.Add(tbVersion);
             Controls.Add(tbName);
             Controls.Add(tbProductCode);
             Name = "AddModifyWindowForm";
             Text = "Add or Modify Product";
+            Load += AddModifyFormLoad;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -157,7 +158,7 @@
         private TextBox tbProductCode;
         private TextBox tbName;
         private TextBox tbVersion;
-        private TextBox tbReleseDate;
+        private TextBox tbReleaseDate;
         private Label lbProductCode;
         private Label lbName;
         private Label lbVersion;
