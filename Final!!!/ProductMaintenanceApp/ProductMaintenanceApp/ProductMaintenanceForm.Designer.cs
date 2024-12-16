@@ -53,7 +53,7 @@
             btnModify.Name = "btnModify";
             btnModify.Size = new Size(124, 32);
             btnModify.TabIndex = 1;
-            btnModify.Text = "btnModify";
+            btnModify.Text = "&Modify";
             btnModify.UseVisualStyleBackColor = false;
             btnModify.Click += btnModify_Click;
             // 
@@ -81,6 +81,7 @@
             // 
             // lstProduct
             // 
+            lstProduct.Font = new Font("Consolas", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lstProduct.FormattingEnabled = true;
             lstProduct.ItemHeight = 15;
             lstProduct.Location = new Point(40, 45);
@@ -101,6 +102,7 @@
             Controls.Add(btnAdd);
             Name = "ProductMaintenanceForm";
             Text = "Product Maintenance";
+            Load += ProductMaintenanceFormLoad;
             ResumeLayout(false);
         }
 

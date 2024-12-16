@@ -15,16 +15,6 @@ namespace ProductMaintenanceApp
         {
 
         }
-        private void ProductMaintenanceForm_Load(object sender, EventArgs e)
-        {
-            using (var context = new ProductdbMdfContext())
-            {
-                var products = context.Products.OrderBy(p => p.Name).ToList();
-                lstProduct.DataSource = products;
-                lstProduct.DisplayMember = "Name";
-            }
-
-        }
         private void btnAdd_Click(object sender, EventArgs e)
         {
             using (var addModifyForm = new AddModifyWindowForm { IsModify = false })
@@ -35,27 +25,39 @@ namespace ProductMaintenanceApp
                     {
                         context.Products.Add(addModifyForm.Product);
                         context.SaveChanges();
-                        //ProductMaintenanceForm_Load();
+                        ProductMaintenanceFormLoad(sender, e);
                     }
                 }
             }
         }
 
 
+       
         private void btnModify_Click(object sender, EventArgs e)
         {
-            var selectedProduct = (Product)lstProduct.SelectedItem;
-            if (selectedProduct == null)
+            var selectedString = lstProduct.SelectedItem as string;
+            if (string.IsNullOrEmpty(selectedString))
             {
                 MessageBox.Show("Please select a product to modify.");
                 return;
             }
 
-            using (var modifyForm = new AddModifyWindowForm { IsModify = true, Product = selectedProduct })
+            // Extract the ProductCode from the selected string by splitting at the first tab character
+            var parts = selectedString.Split('\t');
+            var productCode = parts[0].Trim();
+
+            using (var context = new ProductdbMdfContext())
             {
-                if (modifyForm.ShowDialog() == DialogResult.OK)
+                var selectedProduct = context.Products.FirstOrDefault(p => p.ProductCode == productCode);
+                if (selectedProduct == null)
                 {
-                    using (var context = new ProductdbMdfContext())
+                    MessageBox.Show($"Product {productCode} not found in the database.");
+                    return;
+                }
+
+                using (var modifyForm = new AddModifyWindowForm { IsModify = true, Product = selectedProduct })
+                {
+                    if (modifyForm.ShowDialog() == DialogResult.OK)
                     {
                         var product = context.Products.Find(selectedProduct.ProductCode);
                         if (product != null)
@@ -64,53 +66,97 @@ namespace ProductMaintenanceApp
                             product.Version = modifyForm.Product.Version;
                             product.ReleaseDate = modifyForm.Product.ReleaseDate;
                             context.SaveChanges();
-                            //ProductMaintenanceForm_Load();
+                            ProductMaintenanceFormLoad(sender, e);
                         }
                     }
                 }
             }
         }
 
+
+        
+
         private void btnRemove_Click(object sender, EventArgs e)
         {
-            var selectedProduct = (Product)lstProduct.SelectedItem;
-            if (selectedProduct == null)
+            var selectedString = lstProduct.SelectedItem as string;
+            if (string.IsNullOrEmpty(selectedString))
             {
                 MessageBox.Show("Please select a product to remove.");
                 return;
             }
 
-            if (MessageBox.Show($"Are you sure you want to remove {selectedProduct.Name}?", "Confirm Removal", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            // Extract the ProductCode from the selected string by splitting at the first tab character
+            var parts = selectedString.Split('\t');
+            var productCode = parts[0].Trim(); // Assuming ProductCode is before the first tab character
+
+            using (var context = new ProductdbMdfContext())
             {
-                using (var context = new ProductdbMdfContext())
+                var selectedProduct = context.Products.FirstOrDefault(p => p.ProductCode == productCode);
+                if (selectedProduct == null)
                 {
-                    var product = context.Products.Find(selectedProduct.ProductCode);
-                    if (product != null)
-                    {
-                        if (context.Incidents.Any(i => i.ProductCode == product.ProductCode) || context.Registrations.Any(r => r.ProductCode == product.ProductCode))
-                        {
-                            MessageBox.Show("Cannot remove product with related incidents or registrations.");
-                            return;
-                        }
-                        context.Products.Remove(product);
-                        context.SaveChanges();
-                        ProductMaintenanceForm_Load(sender, e);
-                    }
+                    MessageBox.Show($"Product {productCode} not found in the database.");
+                    return;
+                }
+
+                if (context.Incidents.Any(i => i.ProductCode == selectedProduct.ProductCode) ||
+                    context.Registrations.Any(r => r.ProductCode == selectedProduct.ProductCode))
+                {
+                    MessageBox.Show("Cannot remove product with related incidents or registrations.");
+                    return;
+                }
+
+                if (MessageBox.Show($"Are you sure you want to remove {selectedProduct.Name}?", "Confirm Removal", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    context.Products.Remove(selectedProduct);
+                    context.SaveChanges();
+                    ProductMaintenanceFormLoad(sender, e); // Refresh the product list
                 }
             }
         }
-
 
         private void btnExit_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-        
+        private void ProductMaintenanceFormLoad(object sender, EventArgs e)
+        {
+            using (var context = new ProductdbMdfContext())
+            {
+                var products = context.Products
+                                      .OrderBy(p => p.Name)
+                                      .Select(p => new
+                                      {
+                                          p.ProductCode,
+                                          p.Name,
+                                          p.Version,
+                                          p.ReleaseDate
+                                      })
+                                      .ToList();
+
+                lstProduct.Items.Clear();
+
+                // Define the maximum lengths for padding
+                int codePad = 15;
+                int namePad = 30;
+                int versionPad = 10;
+
+                foreach (var product in products)
+                {
+                    string productDisplay = $"{product.ProductCode.PadRight(codePad)}\t" +
+                                            $"{product.Name.PadRight(namePad)}\t" +
+                                            $"{product.Version.ToString().PadRight(versionPad)}\t" +
+                                            $"{product.ReleaseDate.ToShortDateString()}";
+                    lstProduct.Items.Add(productDisplay);
+                }
+            }
+
+        }
     }
 
 
 }
+
 
 
 
