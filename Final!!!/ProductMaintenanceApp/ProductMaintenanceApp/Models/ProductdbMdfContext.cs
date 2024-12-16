@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,8 +29,13 @@ public partial class ProductdbMdfContext : DbContext
     public virtual DbSet<Technician> Technicians { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\aidan\\source\\repos\\Final!!!\\ProductMaintenanceApp\\ProductMaintenanceApp\\ProductDB.mdf;Integrated Security=True;Trusted_Connection=True;");
-
+    {
+        if (!optionsBuilder.IsConfigured)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["ProductMaintDB"].ConnectionString;
+            optionsBuilder.UseSqlServer(connectionString);
+        }
+    }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Customer>(entity =>
